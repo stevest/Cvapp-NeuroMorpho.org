@@ -103,7 +103,7 @@ class shrinkageCorrectionFrame extends JFrame implements ActionListener {
    public void actionPerformed(ActionEvent e) {
       Object source = e.getSource();
       if (source instanceof JButton) {
-         String sarg = ((JButton)source).getLabel();
+         String sarg = null;//((JButton)source).getLabel();
 	 if (sarg.equals("cancel")) {
 	    setVisible(false);
 

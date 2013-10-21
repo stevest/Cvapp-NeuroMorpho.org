@@ -1,4 +1,4 @@
-package cvapp;
+package swc2hoc;
 
 /*
  cvapp - neuronal morphology viewer, editor and file converter
@@ -24,13 +24,14 @@ package cvapp;
  */
 
 import java.awt.*;
+import java.awt.List;
 import java.net.*;
 import java.awt.event.*;
 import java.io.File;
 import javax.swing.*;
 
 class neuronEditorPanel extends JPanel implements ActionListener, ItemListener {
-	@SuppressWarnings("unchecked")
+    
 	graphData3 neugd;
 	neuronEditorCanvas neucan;
 	rescalableFloatSlider rsfsxscale;
@@ -356,10 +357,10 @@ class neuronEditorPanel extends JPanel implements ActionListener, ItemListener {
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
 		if (source instanceof JButton) {
-			String sarg = null;//((JButton) source).getLabel();
+			String sarg = ((JButton) source).getLabel();
 			processNameEvent(sarg);
 		} else if (source instanceof MenuItem) {
-			String sarg = null;//((MenuItem) source).getLabel();
+			String sarg = ((MenuItem) source).getLabel();
 			sarg = e.getActionCommand();
 
 			int newtyp = -1;
@@ -739,7 +740,7 @@ class ModifiedOptionBar extends JPanel implements ItemListener, ActionListener {
         
 		String sarg = null;
         if (source instanceof JButton) 
-            sarg = null;//((JButton) source).getLabel();
+            sarg = ((JButton) source).getLabel();
         if (source instanceof JComboBox) 
             sarg = ((JComboBox) source).getSelectedItem().toString();
         
@@ -846,12 +847,12 @@ class optionBar extends sbPanel implements ItemListener, ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
 		if (source instanceof JButton) {
-			String sarg = null;//((JButton) source).getLabel();
+			String sarg = ((JButton) source).getLabel();
 			if (sarg.equals("reverse")) {
 				neupan.reverseVideo();
 			}
 		} else if (source instanceof MenuItem) {
-			String sarg = null;//((MenuItem) source).getLabel();
+			String sarg = ((MenuItem) source).getLabel();
 			processNameEvent(sarg);
 		}
 	}
@@ -1055,7 +1056,7 @@ class webCellBar extends sbPanel implements ItemListener, ActionListener,
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
 		if (source instanceof JButton) {
-			String sarg = null;//((JButton) source).getLabel();
+			String sarg = ((JButton) source).getLabel();
 			if (sarg.equals("fetch list")) {
 				hostroot = webAdd.getText();
 				getIndexFromURL();

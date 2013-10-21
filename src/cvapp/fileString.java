@@ -28,7 +28,7 @@ import java.io.*;
 import javax.swing.JFileChooser;
 
 public abstract class fileString {
-
+	@SuppressWarnings("unchecked")
     public static String readStringFromFile(String fnm) {
         File f;
         String sdat = null;

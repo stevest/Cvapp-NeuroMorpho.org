@@ -28,7 +28,7 @@ import java.net.*;
 
 
 public abstract class urlString {
-
+	@SuppressWarnings("unchecked")
   /*
   public static String readStringFromURL () {
      Frame fr = new Frame();

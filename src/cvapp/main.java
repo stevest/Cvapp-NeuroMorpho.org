@@ -32,7 +32,6 @@ public class main implements Runnable/*extends JApplet*/ {
     }
 
     public static void main(String[] args) {
-        
         //UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
         if (args.length == 1 && args[0].equals(TEST_FLAG)) {
@@ -78,7 +77,7 @@ public class main implements Runnable/*extends JApplet*/ {
             neuronEditorFrame nef = null;
             nef = new neuronEditorFrame(700, 600);
 
-            //nef.validate();
+            nef.validate();
             nef.pack();
             centerWindow(nef);
             
@@ -139,11 +138,16 @@ public class main implements Runnable/*extends JApplet*/ {
                     }
                 }
             }
-           
+            
+            saveHocMine(nef,fileName);
+            
         } catch (Exception exception) {
             System.err.println("Error while handling SWC file ("+a+")");
             exception.printStackTrace();
         }
+        
+        System.exit(0);
+        
     }
 
     /*
@@ -245,6 +249,46 @@ public class main implements Runnable/*extends JApplet*/ {
 
         validateXMLWithURL(nml2File, "https://raw.github.com/NeuroML/NeuroML2/master/Schemas/NeuroML2/NeuroML_v2beta.xsd");
         
+    }
+    
+    private static void saveHocMine(neuronEditorFrame nef,String fileName){
+        System.out.println("Override: SAVE ONLY HOC FILE FOR MORPHOLOGY "+fileName);
+        File tempDir = new File("HOCs");
+        if (!tempDir.exists()) tempDir.mkdir();
+
+        neuronEditorPanel nep = nef.getNeuronEditorPanel();
+
+        String rootFileName = fileName;
+        if (rootFileName.toLowerCase().endsWith(".swc")) {
+            rootFileName = rootFileName.substring(0, rootFileName.length()-4);
+        }
+        
+        if (rootFileName.lastIndexOf(System.getProperty("file.separator"))>0) {
+            rootFileName = rootFileName.substring(rootFileName.lastIndexOf(System.getProperty("file.separator"))+1);
+        }
+
+        // NEURON save...
+
+        String neuronFileName = rootFileName+".hoc";
+        File neuronFile = new File(tempDir, neuronFileName);
+        File neuronTestFile = new File(tempDir, rootFileName+".hoc");
+
+
+        nep.writeStringToFile(nep.getCell().HOCwriteNS(), neuronFile.getAbsolutePath());
+
+        StringBuilder sbNeuTest = new StringBuilder();
+        //sbNeuTest.append("load_file(\"nrngui.hoc\")\n");
+        //sbNeuTest.append("load_file(\"../neuronUtils/nCtools.hoc\")\n");
+        //sbNeuTest.append("load_file(\"../neuronUtils/cellCheck.hoc\")\n");
+        //sbNeuTest.append("load_file(\"nrngui.hoc\")\n");
+        //sbNeuTest.append("load_file(\""+neuronFileName+"\")\n\n");
+        //sbNeuTest.append("forall morph()\n");
+        System.out.println("--------------------------------------------------------------");
+        //nep.writeStringToFile(sbNeuTest.toString(), neuronTestFile.getAbsolutePath());
+
+        System.out.println("Saved NEURON representation of the file to: "+neuronFile.getAbsolutePath()+": "+neuronFile.exists());
+        System.out.println("--------------------------------------------------------------");
+
     }
 
     private static void validateXML(File nmlFile, File schemaFile)
