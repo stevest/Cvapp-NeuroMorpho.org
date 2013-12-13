@@ -54,8 +54,8 @@ class neulucData extends Object {
     int[] usedTypes;
 
     String[] sectionTypes = {"undefined", "soma",
-        "axon", "dendrite",
-        "apical_dendrite", "custom-1",
+        "axon", "dend",
+        "apic", "custom-1",
         "custom-2", "custom-n"};
     
     String[] headerField = {"ORIGINAL_SOURCE",
